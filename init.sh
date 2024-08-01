@@ -1,2 +1,2 @@
 mkdir database || echo "database exists already..."
-echo "[]" > database/stories.json
+echo "[]" > database/state.json

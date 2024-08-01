@@ -25,7 +25,6 @@ async function requestChatCompletion(msg) {
 }
 
 // PROMPTING
-let actionText = fs.readFileSync(`./prompts/actions.txt`).toString();
 let schemaText = fs.readFileSync(`./prompts/schema.txt`).toString();
 
 function withPrompt(title, vars) {
@@ -35,64 +34,19 @@ function withPrompt(title, vars) {
       txt = txt.replace(`\$${key}`, vars[key]);
     }
   }
-  txt = txt.replace(`\$actions`, actionText);
   txt = txt.replace(`\$schema`, schemaText);
+  txt = txt.replace(`\$state`, JSON.stringify(loadState()));
   return txt;
 }
 
 // SERVICE LAYER
-function listStories() {
-  return JSON.parse(
-    fs.readFileSync("./database/stories.json").toString().trim()
-  );
-}
-function getStory({ storyId }) {
-  return JSON.parse(
-    fs.readFileSync("./database/stories.json").toString().trim()
-  ).find((x) => x.storyId == storyId);
+function loadState() {
+  return JSON.parse(fs.readFileSync("./database/state.json").toString().trim());
 }
 
-function createStory({ name, panels }) {
-  const stories = JSON.parse(
-    fs.readFileSync("./database/stories.json").toString().trim()
-  );
-  const newStory = { name, panels, storyId: v4() };
-  stories.push(newStory);
-  fs.writeFileSync("./database/stories.json", JSON.stringify(stories));
-  return newStory;
+function saveState(state) {
+  fs.writeFileSync("./database/state.json", JSON.stringify(state));
 }
-
-function updateStory({ storyId, name, panels }) {
-  const stories = JSON.parse(
-    fs.readFileSync("./database/stories.json").toString().trim()
-  );
-  const story = stories.find((x) => x.storyId == storyId);
-  story.name = name;
-  story.panels = panels;
-  fs.writeFileSync("./database/stories.json", JSON.stringify(stories));
-  return story;
-}
-
-function deleteStory({ storyId }) {
-  const stories = JSON.parse(
-    fs.readFileSync("./database/stories.json").toString().trim()
-  );
-  const storyToRemove = stories.find((x) => x.storyId == storyId);
-  const storiesAfterRemove = stories.filter((x) => x != storyToRemove);
-  fs.writeFileSync(
-    "./database/stories.json",
-    JSON.stringify(storiesAfterRemove)
-  );
-  return storyToRemove;
-}
-
-const serviceMap = {
-  "list:stories": listStories,
-  "get:story": getStory,
-  "create:story": createStory,
-  "update:story": updateStory,
-  "delete:story": deleteStory,
-};
 
 // EXPRESS
 const app = express();
@@ -114,17 +68,17 @@ app.use("/api", async function (req, res) {
     query: JSON.stringify(req.query),
   });
 
+  console.log(prompt);
   const response = await requestChatCompletion(prompt);
   console.log("RESPONSE:", response);
 
   const json = JSON.parse(response);
-  if (serviceMap[json.action]) {
-    const serviceResponse = await serviceMap[json.action](json);
-    console.log("SERVICE:", serviceResponse);
-    res.status(200).send(serviceResponse);
-  } else {
-    res.status(404).jsonp(json);
+  if (json.new_state) {
+    console.log("STATE UPDATE:", json.new_state);
+    saveState(json.new_state);
   }
+
+  res.status(200).send(json.api_response);
 });
 
 app.use(function (err, req, res, next) {

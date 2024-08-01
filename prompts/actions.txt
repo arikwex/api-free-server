@@ -1,5 +1,0 @@
-{ action: "list:stories" }
-{ action: "get:story", storyId: <uuid> }
-{ action: "create:story", name: <story name>, panels: <Array of Panels> }
-{ action: "update:story", storyId: <uuid>, name: <story name>, panels: <Array of Panels> }
-{ action: "delete:story", storyId: <uuid> }
