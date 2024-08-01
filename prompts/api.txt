@@ -3,10 +3,10 @@ You receive a request with:
 method=$method
 url=$url
 body=$body
+query_params=$query
 
 The schema is exclusively the two following items:
-Story objects are of the form: { storyId, name }
-Panel objects are of the form: { panelId, storyId, caption }
+$schema
 
 Now, make a decision about what action the server should take.
 The only valid actions are:

@@ -1,5 +1,23 @@
 Provide the html for the home page of a website.
 The website is called "Storyboarder" and that title should be clearly visible at the top.
-There should be four tiles for images that occupy the middle of the page.
-Be sure to include tailwind from this cdn url withscript src=https://cdn.tailwindcss.com
-Respond with valid html only with no additional comments.
+There should be a functional "Create New Story" button in blue (api call).
+There should be tiles that occupy the middle of the page (api call).
+These tiles represent the stories you have saved.
+Each tile has the following actions:
+- "Edit": opens dialog to change the name (api call).
+- "Generate": invents a short story and corresponding panels. Pass the title in the request body. (api call).
+- "Delete": delete this story (api call).
+Remember that storyIds and panelIds are strings and must be wrapped in quotes for function calls.
+
+All api calls should have:
+- A clear url structure prefixed with /api/...
+- For POST/PUT/DELETE requests, a field in the body should contain a description of exactly what the api should do and what format output it expects.
+- For GET requests, a field in the url query parameters should contain a description of exactly what the api should do and what format output it expects.
+
+The schema of data resources is:
+$schema
+
+Be sure to include tailwind from this cdn url with script src=https://cdn.tailwindcss.com
+Do not use any other dependencies.
+Respond ONLY with valid html and javascript.
+No additional comments.

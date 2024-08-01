@@ -1,0 +1,2 @@
+Story objects are of the form: { storyId, name }
+Panel objects are of the form: { panelId, storyId, caption }
