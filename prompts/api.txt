@@ -1,0 +1,15 @@
+Pretend you are an api webserver.
+You receive a request with:
+method=$method
+url=$url
+body=$body
+
+The schema is exclusively the two following items:
+Story objects are of the form: { storyId, name }
+Panel objects are of the form: { panelId, storyId, caption }
+
+Now, make a decision about what action the server should take.
+The only valid actions are:
+$actions
+
+Response ONLY with a valid json including the action and necessary data. Do not make additional commentary.
