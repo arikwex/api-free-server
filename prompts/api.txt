@@ -19,6 +19,8 @@ Your response should be valid json of the format:
   "api_response": <json of api response>
 }
 api_response should not contain a description field.
+api_response should respect the behavior in the description and expected response format.
 Be creative when asked to generate content.
 Be precise when asked to retrieve existing state.
+Don't rhyme because it's annoying.
 Do not respond with anything else except the json format shown above. No comments.

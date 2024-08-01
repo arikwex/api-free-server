@@ -1,13 +1,13 @@
 Provide the html for the home page of a website.
-The website is called "Storyboarder" and that title should be clearly visible at the top.
-There should be a functional "Create New Story" button in blue (api call).
+The website is called "Poem Crafter" and that title should be clearly visible at the top.
+There should be a functional "Create New Poem" button in blue (api call).
 There should be tiles that occupy the middle of the page (api call).
-These tiles represent the stories you have saved.
-If a tile has panels with captions, those captions should be displayed as a list.
+These tiles represent the poems you have saved.
+If a tile has poem text available, it should be displayed.
 Each tile has the following actions:
-- "Edit": opens dialog to change the name (api call).
-- "Generate": empty the existing story panels. Invents a totally new short story based on the story name. The result should be a sequence of new panels. (api call).
-- "Delete": delete this story (api call).
+- "Edit": opens dialog to change the poem name. Then automatically generate the poem. (api call).
+- "Generate": Invents a totally new poem based on the poem's name. (api call).
+- "Delete": delete this poem (api call).
 
 All api calls should have:
 - A clear url structure prefixed with /api/...
