@@ -1,26 +1,23 @@
 Provide the html for the home page of a website.
-The website is called "Poem Crafter" and that title should be clearly visible at the top.
-There should be a functional "Create New Poem" button in blue (api call).
-There should be tiles that occupy the middle of the page (api call).
-These tiles represent the poems you have saved.
-If a tile has poem text available, it should be displayed.
-Each tile has the following actions:
-- "Edit": opens dialog to change the poem name. Then automatically generate the poem. (api call).
-- "Generate": Invents a totally new poem based on the poem's name. (api call).
-- "Delete": delete this poem (api call).
+
+The website is called "TODO Hero" and that title should be clearly visible at the top.
+There should be a functional "Add New Item" button (api call).
+There should be a list of all TODO items in the middle of the page (api call).
+Each TODO item:
+- Can be marked as "checked off" or not via a checkbox item (api call).
+- Has a clear label of the TODO item text.
+- Checked-off items should have a strikethrough text style.
+- Can be removed from the TODO list.
 
 All api calls should have:
 - A clear url structure prefixed with /api/...
-- For POST/PUT/DELETE requests, a field in the body should contain a description of exactly what the api should do and what format output it expects.
-- For GET requests, a field in the url query parameters should contain a description of exactly what the api should do and what format output it expects.
-The descriptions added to requests should provide an example of the exact json format of the response.
-
-The schema of data resources is:
-$schema
+- For all requests, a field in the request headers called "api-description" must contain a description of exactly what the api should do.
+- For all requests, a field in the request headers called "api-example" must contain an example of the exact json format expected in return.
 
 Be sure to include tailwind from this cdn url with script src=https://cdn.tailwindcss.com
 Do not use any other dependencies.
 When an api request is ongoing, the UI should indicate a loading state.
 When an api request changes state, the UI should query the latest data.
+Put all functions in the global scope to avoid scoping problems.
 Respond ONLY with valid html and javascript.
 No additional comments.

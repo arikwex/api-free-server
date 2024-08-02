@@ -25,8 +25,6 @@ async function requestChatCompletion(msg) {
 }
 
 // PROMPTING
-let schemaText = fs.readFileSync(`./prompts/schema.txt`).toString();
-
 function withPrompt(title, vars) {
   let txt = fs.readFileSync(`./prompts/${title}.txt`).toString();
   if (vars) {
@@ -34,7 +32,6 @@ function withPrompt(title, vars) {
       txt = txt.replace(`\$${key}`, vars[key]);
     }
   }
-  txt = txt.replace(`\$schema`, schemaText);
   txt = txt.replace(`\$state`, JSON.stringify(loadState()));
   return txt;
 }
@@ -59,11 +56,21 @@ app.get("/", async function (req, res) {
   res.send(response);
 });
 
+function filterHeaders(headers) {
+  const keysToKeep = Object.keys(headers).filter(
+    (x) => x.toLowerCase().indexOf("api") == 0
+  );
+  const result = {};
+  keysToKeep.forEach((k) => (result[k] = headers[k]));
+  return result;
+}
+
 app.use("/api", async function (req, res) {
   console.log("REQUEST:", req.url, req.method, req.body, req.query);
   const prompt = withPrompt("api", {
     method: req.method,
     url: req.url,
+    headers: JSON.stringify(filterHeaders(req.headers)),
     body: JSON.stringify(req.body),
     query: JSON.stringify(req.query),
   });

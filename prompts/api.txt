@@ -6,11 +6,9 @@ $state
 You receive a request with:
 method=$method
 url=$url
+headers=$headers
 body=$body
 query_params=$query
-
-The data model schema is:
-$schema
 
 Now, make a decision about what action the server should take.
 Your response should be valid json of the format:
